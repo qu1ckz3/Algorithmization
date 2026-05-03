@@ -1,0 +1,29 @@
+def is_oriented_graph(graph):
+    if len(graph) != len(graph[0]):
+        return None
+
+    rows_amount = len(graph)
+
+    for i in range(rows_amount):
+        for j in range(rows_amount):
+            if graph[i][j] != graph[j][i]:
+                return True
+    return False
+
+
+row_amount = int(input('Введите количество вершин графа: '))
+
+gr = []
+for i in range(row_amount):
+    gr.append(list(map(int, input(f'Введите строку {i+1} матрицы совместимости (числа через пробел): ').split(" "))))
+
+
+result = is_oriented_graph(gr)
+
+
+if result:
+    print('Граф ориентированный.')
+elif result is False:
+    print('Граф неориентированный.')
+else:
+    print('Некорректная матрица (это не граф).')
