@@ -1,0 +1,28 @@
+from collections import deque
+
+
+def lee(grid, start, end):
+    rows, cols = len(grid), len(grid[0])
+    queue = deque([start])
+    dist = [[-1] * cols for _ in range(rows)]
+    dist[start[0]][start[1]] = 0
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    while queue:
+        x, y = queue.popleft()
+        if (x, y) == end:
+            break
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < rows and 0 <= ny < cols:
+                if grid[nx][ny] == 0 and dist[nx][ny] == -1:
+                    dist[nx][ny] = dist[x][y] + 1
+                    queue.append((nx, ny))
+
+    return dist
+
+
+grid = [[0] * 5 for _ in range(10)]
+
+dist = lee(grid, (0, 0), (9, 2))
+for i in dist:
+    print(i)
