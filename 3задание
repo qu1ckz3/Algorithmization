@@ -1,12 +1,22 @@
-students = ["Боркин", "Бельков", "Ануфриев", "Счетчикова"]
-course = ["Высшая математика", "Теория систем", "Бух.учёт", "Алгоритмизация"]
-dates = ["05.06.26","06.06.26","03.06.26","12.06.26"]
-grades = [2,3,4,5]
+from random import randint
 
-for c in course:
-    if c == "Бух.учёт":
-        for d in dates:
-            if d == "03.05.26":
-                for s in students:
-                    for g in grades:
-                        print(s,g,c,d)
+students = ["Ануфриев", "Бельков", "Жегалин"]
+subjects = ["Мат. Анализ", "Лин. Алгебра", "ТВиМС"]
+dates = ["02.03.2026", "03.03.2026", "04.03.2026", "05.03.2026"]
+
+
+print('Все комбинации:')
+for i in subjects:
+    for j in students:
+        for k in dates:
+            for l in range(2, 6):
+                print(i, j, k, l)
+
+
+selected_student = int(input(f'{list(enumerate(students))}\nВыберите студента (номер): '))
+
+print('Предмет', 'Фамилия', 'Дата', 'Оценка')
+
+for i in subjects:
+    for k in dates:
+        print(i, students[selected_student], k, randint(2, 5))
