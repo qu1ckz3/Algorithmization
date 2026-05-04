@@ -1,25 +1,17 @@
-def f(g, s, e, v=None):
-    if v is None: v = []
-    v = v + [s]
-    if s == e: return v, 0
-
-    best = None
-    for n, w in g.get(s, []):
-        if n not in v:
-            r = f(g, n, e, v)
-            if r:
-                p, d = r
-                d += w
-                if not best or d < best[1]:
-                    best = (p, d)
-    return best
+from random import randint
 
 
-g = {
-    'A': [('B', 1), ('C', 4)],
-    'B': [('C', 2), ('D', 2)],
-    'C': [('D', 5)],
-    'D': []
-}
+def tail_rec(arr, minn=2**31-1, maxx=-2**31+1, summ=0, idx=0):
+    if idx >= len(arr):
+        return minn, maxx, summ
+    if arr[idx] < minn:
+        minn = arr[idx]
+    if arr[idx] > maxx:
+        maxx = arr[idx]
+    summ+=arr[idx]
+    return tail_rec(arr, minn, maxx, summ, idx+1)
 
-print(f(g, 'A', 'D'))
+array = [randint(1, 100) for _ in range(10)]
+
+print(array)
+print(tail_rec(array))
