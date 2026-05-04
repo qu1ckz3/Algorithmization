@@ -1,26 +1,28 @@
-def sumL(l2):
-    if len(l2) != 0:
-        return l2[0] + sumL(l2[1:])
-    return 0
+from random import randint
 
-def maxL(l2,maxim):
-    if len(l2) != 0:
-        if l2[0] >= maxim:
-            return maxL(l2[1:], l2[0])
-        return maxL(l2[1:], maxim)
-    return maxim
+array = [randint(1, 100) for _ in range(10)]
 
-def minL(l2,minum):
-    if len(l2) != 0:
-        if l2[0] <= minum:
-            return minL(l2[1:], l2[0])
-        return minL(l2[1:], minum)
-    return minum
 
-l2 = [7, 3, 9, 9, 2, 5]
-maxim = 0
-minum = maxL(l2,maxim)
+def min_counter(arr, minn=2**31):
+    if not arr:
+        return minn
+    if arr[0] < minn:
+        minn = arr[0]
+    return min_counter(arr[1:], minn)
 
-print(sumL(l2))
-print(maxL(l2,maxim))
-print(minL(l2,minum))
+
+def max_counter(arr, maxx=-2**31):
+    if not arr:
+        return maxx
+    if arr[0] > maxx:
+        maxx = arr[0]
+    return max_counter(arr[1:], maxx)
+
+
+def sum_counter(arr):
+    if not arr:
+        return 0
+    return arr[0] + sum_counter(arr[1:])
+
+print(array)
+print(min_counter(array), max_counter(array), sum_counter(array))
