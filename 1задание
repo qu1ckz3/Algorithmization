@@ -1,31 +1,26 @@
-import timeit
-import random
+from random import randint
 
-def binary_search_rec(left, right, target, y):
-    ""Рекурсивный бинарный поиск z, такого что z + y == target.""
+
+def binary_search(x, y, left, right):
     if left > right:
-        return None 
-    mid = (left + right) // 2
-    if mid + y == target:
-        return mid
-    if mid + y < target:
-        return binary_search_rec(mid + 1, right, target, y)
-    return binary_search_rec(left, mid - 1, target, y)
+        return None
 
-def search(test):
-    for x, y in test:
-        _ = binary_search_rec(0, x, x, y)  # результат не используется
+    pin = (left + right) // 2
 
-# Генерация тестовых данных (4000 пар, y < x)
-test = [
-    (x, random.randint(1, x - 1))
-    for x in (random.randint(10, 1000) for _ in range(4000))
-]
+    if y + pin == x:
+        return pin
 
-# Проверка на одной паре
-x, y = test[1]
-z = binary_search_rec(0, x, x, y)
-print((z + y) - x)   # всегда 0
+    if y + pin > x:
+        return binary_search(x, y, left, pin - 1)
+    if y + pin < x:
+        return binary_search(x, y, pin + 1, right)
 
-# Замер времени выполнения search
-print(timeit.timeit(lambda: search(test), number=1))
+
+x = randint(1, 1000)
+y = randint(1, 1000)
+
+left, right = -1000, 1000
+
+z = binary_search(x, y, left, right)
+
+print(f"x: {x}, y: {y}, z: {z}, y+z: {y+z if z is not None else None}")
